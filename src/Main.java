@@ -3,16 +3,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+
     public static StringBuilder logs = new StringBuilder();
     public static void main(String[] args) {
+        Hero[] heroes1 = new Hero[3];
+        Hero[] heroes2 = new Hero[3];
 
-        Warrior warrior1 = new Warrior("Воин Джон", "воина Джона");
-        Warrior warrior2 = new Warrior("Воин Ляпис", "воина Ляписа");
-        Mage mage1 = new Mage("Маг Бобби", "мага Бобби");
-        Mage mage2 = new Mage("Маг Петр", "мага Петра");
-        Assasin ass1 = new Assasin("Ассасин Герри", "ассасина Герри");
-        Assasin ass2 = new Assasin("Ассасин Владимир", "ассасина Владимира");
-        statsOfComands(warrior1, warrior2, mage1, mage2, ass1, ass2);
+        heroes1[0] = new WarriorSub("Воин Джон", "воина Джона");
+        heroes2[0] = new WarriorSub("Воин Ляпис", "воина Ляписа");
+        heroes1[1] = new MageSub("Маг Бобби", "мага Бобби");
+        heroes2[1] = new MageSub("Маг Петр", "мага Петра");
+        heroes1[2] = new AssasinSub("Ассасин Герри", "ассасина Герри");
+        heroes2[2] = new AssasinSub("Ассасин Владимир", "ассасина Владимира");
+        statsOfComands(heroes1, heroes2);
 
 
         while((warrior1.isAlive() || mage1.isAlive() || ass1.isAlive()) && (warrior2.isAlive() || mage2.isAlive() || ass2.isAlive())){
@@ -52,11 +55,11 @@ public class Main {
         }
     }
 
-    public static int findTarget(Warrior x, Mage y, Assasin z){
+    public static int findTarget(Hero[] x){
         Random rand = new Random();
         boolean targetDetermined = true;
         int choose = 0;
-        if(!(x.isAlive() || y.isAlive() || z.isAlive())) targetDetermined = false;
+        if(!(x[0].isAlive() || x[1].isAlive() || x[2].isAlive())) targetDetermined = false;
         while (targetDetermined) {
             choose = rand.nextInt(3) + 1;
             if (choose == 1){
@@ -82,14 +85,14 @@ public class Main {
         return choose;
     }
 
-    public static void statsOfComands (Warrior xa, Warrior xb, Mage ya, Mage yb, Assasin za, Assasin zb){
-        System.out.printf("\nКоманда Хиппи:\n%s: ХП= %d, Урон = %d, Реген = %d\n", xa.getName(), xa.getHealth(), xa.getDamage(), xa.getRegen());
-        System.out.printf("%s: ХП= %d, Урон = %d, Мана = %d\n",ya.getName(), ya.getHealth(), ya.getDamage(), ya.getMana());
-        System.out.printf("%s: ХП= %d, Урон = %d, Шанс Крита = %d \n\n",za.getName(), za.getHealth(), za.getDamage(), za.getKrit());
+    public static void statsOfComands (Hero[] a, Hero[] b){
+        System.out.printf("\nКоманда Хиппи:\n%s: ХП= %d, Урон = %d, Реген = %d\n", a[0].getName(), a[0].getHealth(), a[0].getDamage(), a[0].getRegen());
+        System.out.printf("%s: ХП= %d, Урон = %d, Мана = %d\n",a[1].getName(), a[1].getHealth(), a[1].getDamage(), a[1].getMana());
+        System.out.printf("%s: ХП= %d, Урон = %d, Шанс Крита = %d \n\n",a[2].getName(), a[2].getHealth(), a[2].getDamage(), a[2].getKrit());
         wait(3);
-        System.out.printf("Команда Богатырей:\n%s: ХП= %d, Урон = %d, Реген = %d\n",xb.getName(), xb.getHealth(), xb.getDamage(), xb.getRegen());
-        System.out.printf("%s: ХП= %d, Урон = %d, Мана = %d\n",yb.getName(), yb.getHealth(), yb.getDamage(), yb.getMana());
-        System.out.printf("%s: ХП= %d, Урон = %d, Шанс Крита = %d \n\n",zb.getName(), zb.getHealth(), zb.getDamage(), zb.getKrit());
+        System.out.printf("Команда Богатырей:\n%s: ХП= %d, Урон = %d, Реген = %d\n",b[0].getName(), b[0].getHealth(), b[0].getDamage(), b[0].getRegen());
+        System.out.printf("%s: ХП= %d, Урон = %d, Мана = %d\n",b[1].getName(), b[1].getHealth(), b[1].getDamage(), b[1].getMana());
+        System.out.printf("%s: ХП= %d, Урон = %d, Шанс Крита = %d \n\n",b[2].getName(), b[2].getHealth(), b[2].getDamage(), b[2].getKrit());
         wait(3);
     }
 

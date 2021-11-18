@@ -1,16 +1,16 @@
 import java.util.Random;
 
 public class Hero {
-    private int health;
-    private int damage;
+    protected int health;
+    protected int damage;
     private String name;
     private String name2;
-    private int lvl;
-    private int exp;
-    private int healthMax;
+    protected int lvl;
+    protected int exp;
+    protected int healthMax;
     private boolean alive;
-    private int currentLvl;
-    private int lvlAfterTurn;
+    protected int currentLvl;
+    protected int lvlAfterTurn;
     Random rand = new Random();
 
     public Hero (String name, String name2){
@@ -90,5 +90,17 @@ public class Hero {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public int getRegen() {
+        return 0;
+    }
+
+    public int getMana() {
+        return 0;
+    }
+
+    public int getKrit() {
+        return 0;
     }
 }
