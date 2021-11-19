@@ -53,9 +53,6 @@ public class Main {
             if (x[choose].isAlive()){
                 targetDetermined = false;
             }
-            else {
-                targetDetermined = true;
-            }
         }
         return choose;
     }
