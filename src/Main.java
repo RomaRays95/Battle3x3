@@ -18,68 +18,43 @@ public class Main {
         statsOfComands(heroes1, heroes2);
 
 
-        while((warrior1.isAlive() || mage1.isAlive() || ass1.isAlive()) && (warrior2.isAlive() || mage2.isAlive() || ass2.isAlive())){
-            turn(1, warrior1, warrior2, mage1, mage2, ass1, ass2);
-            turn(1, warrior2, warrior1, mage2, mage1, ass2, ass1);
-            if (mage1.isAlive()) mage1.magic(warrior1, mage1, ass1);
-            if (mage2.isAlive()) mage2.magic(warrior2, mage2, ass2);
-            turn(2, warrior1, warrior2, mage1, mage2, ass1, ass2);
-            turn(2, warrior2, warrior1, mage2, mage1, ass2, ass1);
-            turn(3, warrior1, warrior2, mage1, mage2, ass1, ass2);
-            turn(3, warrior2, warrior1, mage2, mage1, ass2, ass1);
+        while((heroes1[0].isAlive() || heroes1[1].isAlive() || heroes1[2].isAlive()) && (heroes2[0].isAlive() || heroes2[1].isAlive() || heroes2[2].isAlive())){
+            turn(0, heroes1, heroes2);
+            turn(0, heroes2, heroes1);
+            if (heroes1[1].isAlive()) heroes1[1].magic(heroes1);
+            if (heroes2[1].isAlive()) heroes2[1].magic(heroes2);
+            turn(1, heroes1, heroes2);
+            turn(1, heroes2, heroes1);
+            turn(2, heroes1, heroes2);
+            turn(2, heroes2, heroes1);
         }
-        if ((warrior1.isAlive() || mage1.isAlive() || ass1.isAlive())) logs.append("<Хиппи победили!>");
+        if ((heroes1[0].isAlive() || heroes1[1].isAlive() || heroes1[2].isAlive())) logs.append("<Хиппи победили!>");
         else logs.append("<Пацаны одержали верх!!!>");
         outLogs(3);
     }
 
-    private static void turn(int whichTurn, Warrior xa, Warrior xb, Mage ya, Mage yb, Assasin za, Assasin zb){
-        int target = findTarget(xb, yb, zb);
-        if ((whichTurn == 1) && (xa.isAlive())){
-            if (target == 1) xb.receiveDamage(xa.attack());
-            if (target == 2) yb.receiveDamage(xa.attack());
-            if (target == 3) zb.receiveDamage(xa.attack());
-            xa.isUpLvl();
-        }
-        if ((whichTurn == 2) && (ya.isAlive())){
-            if (target == 1) xb.receiveDamage(ya.attack());
-            if (target == 2) yb.receiveDamage(ya.attack());
-            if (target == 3) zb.receiveDamage(ya.attack());
-            ya.isUpLvl();
-        }
-        if ((whichTurn == 3) && (za.isAlive())){
-            if (target == 1) xb.receiveDamage(za.attack());
-            if (target == 2) yb.receiveDamage(za.attack());
-            if (target == 3) zb.receiveDamage(za.attack());
-            za.isUpLvl();
+    private static void turn(int whichTurn, Hero[] a, Hero[] b){
+        int target = findTarget(b);
+        if (target != 10){
+            if (a[whichTurn].isAlive()){
+                b[target].receiveDamage(a[whichTurn].attack());
+                a[whichTurn].isUpLvl();
+            }
         }
     }
 
     public static int findTarget(Hero[] x){
         Random rand = new Random();
         boolean targetDetermined = true;
-        int choose = 0;
+        int choose = 10;
         if(!(x[0].isAlive() || x[1].isAlive() || x[2].isAlive())) targetDetermined = false;
         while (targetDetermined) {
-            choose = rand.nextInt(3) + 1;
-            if (choose == 1){
-                if (x.isAlive()){
-                    targetDetermined = false;
-                } else {
-                    targetDetermined = true;
-                }
-            } else if (choose == 2){
-                if (y.isAlive()){
-                    targetDetermined = false;
-                } else {
-                    targetDetermined = true;
-                }
-            } else {
-                if (z.isAlive()){
-                    targetDetermined = false;
-                } else {
-                    targetDetermined = true;
-                }
+            choose = rand.nextInt(3);
+            if (x[choose].isAlive()){
+                targetDetermined = false;
+            }
+            else {
+                targetDetermined = true;
             }
         }
         return choose;
@@ -113,5 +88,4 @@ public class Main {
         }catch(InterruptedException ex){
         }
     }
-//    auff-test
 }

@@ -35,6 +35,22 @@ public class MageSub extends Hero{
         return mana;
     }
 
+    @Override
+    public void magic(Hero[] x) {
+        int target = Main.findTarget(x);
+        int chooseSkill = rand.nextInt(2) + 1;
+        if ((chooseSkill == 1) && (mana >= 25 + (lvl * 3))) x[target].upHealth(heal());
+        if ((chooseSkill == 2) && (mana >= 30 + (lvl * 2))) {
+            x[target].upLvl();
+            skillUpLvl();
+            if (target != 1) {
+                Main.logs.append(String.format("союзника %s, теперь у него %d lvl>", x[target].getName2(), x[target].getLvl()));
+            } else {
+                Main.logs.append(String.format("самому себе, теперь у него %d lvl>", x[target].getLvl()));
+            }
+        }
+    }
+
     private int heal(){
         mana -= 25 + (super.getLvl() * 3);
         Main.logs.append(String.format("<%s лечит на %d ", super.getName(), skillUpHealth));

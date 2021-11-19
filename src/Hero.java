@@ -103,4 +103,7 @@ public class Hero {
     public int getKrit() {
         return 0;
     }
+
+    public void magic(Hero[] x){
+    }
 }
